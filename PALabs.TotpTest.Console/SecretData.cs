@@ -12,7 +12,7 @@ public class SecretData
 
     public string GenQRCodeUrl() =>
         $"otpauth://totp/{Label}?issuer={Uri.EscapeDataString(Issuer)}&secret={Uri.EscapeDataString(Secret)}";
-    
+
     public Image GenQRCode()
     {
         var qrcg = new QRCodeGenerator();
@@ -28,7 +28,7 @@ public class SecretData
     {
         if (totpInstance == null)
         {
-            totpInstance = new Totp(Base32Encoding.ToBytes(this.Secret));
+            totpInstance = new Totp(Base32Encoding.ToBytes(this.Secret), mode: OtpHashMode.Sha256);
         }
 
         long timedWindowUsed;
